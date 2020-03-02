@@ -9,39 +9,34 @@
 import UIKit
 
 enum UserActions: String, CaseIterable {
-    
     case randomCat = "Random Cat"
     case rickAndMorty = "RickAndMorty"
     case countries = "Countries"
 }
 
 class MainCollectionViewController: UICollectionViewController {
-
+    
     private let userActions = UserActions.allCases
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
-
-   
-
     // MARK: UICollectionViewDataSource
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-  
+        
         userActions.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UserActionCell
         
-    
         cell.userActionLabel.text = userActions[indexPath.item].rawValue
-    
+        
         return cell
     }
-
+    
     // MARK: UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -55,12 +50,10 @@ class MainCollectionViewController: UICollectionViewController {
         }
         
     }
+    // MARK: - Navigation
     
-    
-       // MARK: - Navigation
-
-       // In a storyboard-based application, you will often want to do a little preparation before navigation
-       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
         case "rickAndMorty":
@@ -70,16 +63,12 @@ class MainCollectionViewController: UICollectionViewController {
             let catVC = segue.destination as! RandomCatViewController
             catVC.fetchDataCats()
         case "country" :
-          let countryVC = segue.destination as! ContriesController
+            let countryVC = segue.destination as! ContriesController
             countryVC.fetchCoutryData()
-      default:
+        default:
             break
         }
-        
-        
-       }
-       
-
+    }
 }
 
 extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
